@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "omie"
 include ':app'
+include ':core:data'
+include ':core:domain'
