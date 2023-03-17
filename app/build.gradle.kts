@@ -30,13 +30,17 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
+
+    viewBinding.isEnabled = true
 }
 
 dependencies {
@@ -49,6 +53,11 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    implementation(libs.androidx.splash)
+
+    implementation(libs.androidx.datstore)
+    implementation(libs.androidx.lifecycle)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)

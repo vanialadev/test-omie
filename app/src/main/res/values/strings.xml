@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">omie</string>
+    <string name="omie">Omie</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="sing_in">Entrar</string>
+    <string name="sing_up_user">Cadastrar usuário</string>
+    <string name="image_logo">imagem logo</string>
+    <string name="name">Nome</string>
 </resources>
