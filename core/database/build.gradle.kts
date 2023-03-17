@@ -3,8 +3,9 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin)
 }
+
 android {
-    namespace = "br.com.vaniala.omie.data"
+    namespace = "br.com.vaniala.omie.database"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
