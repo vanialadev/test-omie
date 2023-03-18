@@ -17,8 +17,8 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: UserEntity)
 
-    @Query("SELECT * FROM USER WHERE id = :id")
-    fun searchByEmail(id: String): Flow<UserEntity>
+    @Query("SELECT * FROM USER WHERE email = :email")
+    fun searchByEmail(email: String): Flow<UserEntity?>
 
     @Query(
         """ 

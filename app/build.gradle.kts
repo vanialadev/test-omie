@@ -44,6 +44,10 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":core:domain")))
+    implementation(project(mapOf("path" to ":core:data")))
+    implementation(project(mapOf("path" to ":core:database")))
+
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -56,8 +60,9 @@ dependencies {
 
     implementation(libs.androidx.splash)
 
-    implementation(libs.androidx.datstore)
     implementation(libs.androidx.lifecycle)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.activity)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)

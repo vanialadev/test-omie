@@ -1,10 +1,37 @@
 package br.com.vaniala.omie.ui.home.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import br.com.vaniala.omie.domain.usecase.IsLoggedUserCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by Vânia Almeida (Github: @vanialadev)
  * on 17/03/23.
  *
  */
-class HomeViewModel : ViewModel()
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val isLoggedUserCase: IsLoggedUserCase,
+) : ViewModel() {
+    private val _logout = MutableSharedFlow<Unit>()
+    val logout: Flow<Unit> = _logout
+
+    init {
+        viewModelScope.launch {
+            isLoggedUserCase().onEach { isLogged ->
+                Timber.d(isLogged.toString())
+                if (!isLogged) {
+                    _logout.emit(Unit)
+                }
+            }.launchIn(this)
+        }
+    }
+}

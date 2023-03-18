@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:data")))
+    implementation(project(mapOf("path" to ":core:domain")))
 
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)

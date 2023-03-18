@@ -1,10 +1,11 @@
-package br.com.vaniala.omie.data.model
+package br.com.vaniala.omie.domain.model
 
 /**
  * Created by Vânia Almeida (Github: @vanialadev)
  * on 17/03/23.
  *
  */
+
 data class UserModel(
     val id: Long,
     val name: String,

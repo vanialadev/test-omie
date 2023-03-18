@@ -1,4 +1,4 @@
-package br.com.vaniala.omie.preferences
+package br.com.vaniala.omie.data.utils
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -11,6 +11,9 @@ import androidx.datastore.preferences.preferencesDataStore
  * on 17/03/23.
  *
  */
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "logged_user")
+const val DATASTORE_LOGGED_NAME = "logged_user"
+const val DATASTORE_LOGGED_EMAIL = "logged_user_email"
 
-val loggedUserPreferences = stringPreferencesKey("loggedUser")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = DATASTORE_LOGGED_NAME)
+
+val DATASTORE_LOGGED_EMAIL_KEY = stringPreferencesKey(DATASTORE_LOGGED_EMAIL)

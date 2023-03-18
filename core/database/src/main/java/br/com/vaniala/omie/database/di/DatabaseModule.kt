@@ -26,7 +26,7 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun providesNiaDatabase(
+    fun providesOmieDatabase(
         @ApplicationContext context: Context,
     ): OmieDatabase {
         if (DatabaseModule::db.isInitialized) {
