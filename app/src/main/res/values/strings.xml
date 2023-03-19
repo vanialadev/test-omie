@@ -12,4 +12,7 @@
     <string name="sing_in_error">Erro ao logar</string>
     <string name="invalid_email">Email inválido</string>
     <string name="invalid_password">Senha inválida</string>
+    <string name="add_order">Adicionar pedido</string>
+    <string name="new_order">Novo pedido</string>
+    <string name="order_name">Pedido %s</string>
 </resources>
