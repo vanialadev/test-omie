@@ -16,4 +16,8 @@ interface UserRepository {
     suspend fun addEmailDataStore(email: String)
 
     suspend fun isLogged(): Flow<Boolean>
+
+    suspend fun insertUser(userModel: UserModel)
+
+    suspend fun checkEmailExist(email: String): Flow<Boolean>
 }

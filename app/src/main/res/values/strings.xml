@@ -7,4 +7,9 @@
     <string name="sing_up_user">Cadastrar usuário</string>
     <string name="image_logo">imagem logo</string>
     <string name="name">Nome</string>
+    <string name="register_success">Registrado successo!</string>
+    <string name="sing_up_error">Erro ao registrar</string>
+    <string name="sing_in_error">Erro ao logar</string>
+    <string name="invalid_email">Email inválido</string>
+    <string name="invalid_password">Senha inválida</string>
 </resources>

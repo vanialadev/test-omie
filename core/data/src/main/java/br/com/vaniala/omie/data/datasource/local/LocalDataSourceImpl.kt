@@ -22,4 +22,7 @@ class LocalDataSourceImpl @Inject constructor(
 
     override fun authenticate(email: String, password: String): Flow<UserEntity?> =
         userDao.authenticate(email, password)
+
+    override fun checkEmailExist(email: String): Flow<Boolean> =
+        userDao.checkEmailExist(email)
 }

@@ -14,4 +14,5 @@ interface LocalDataSource {
     fun searchByEmail(email: String): Flow<UserEntity?>
 
     fun authenticate(email: String, password: String): Flow<UserEntity?>
+    fun checkEmailExist(email: String): Flow<Boolean>
 }

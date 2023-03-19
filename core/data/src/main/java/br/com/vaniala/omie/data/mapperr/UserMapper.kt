@@ -10,13 +10,12 @@ import br.com.vaniala.omie.domain.model.UserModel
  */
 
 fun UserModel.toEntity() = UserEntity(
-    id = id,
+    id = 0L,
     name = name,
     email = email,
     password = password,
 )
 fun UserEntity.toModel() = UserModel(
-    id = id,
     name = name,
     email = email,
     password = password,

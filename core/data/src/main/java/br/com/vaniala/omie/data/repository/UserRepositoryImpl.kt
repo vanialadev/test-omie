@@ -1,6 +1,7 @@
 package br.com.vaniala.omie.data.repository
 
 import br.com.vaniala.omie.data.datasource.local.LocalDataSource
+import br.com.vaniala.omie.data.mapperr.toEntity
 import br.com.vaniala.omie.data.mapperr.toModel
 import br.com.vaniala.omie.data.utils.DATASTORE_LOGGED_EMAIL_KEY
 import br.com.vaniala.omie.data.utils.DatastoreManager
@@ -37,4 +38,12 @@ class UserRepositoryImpl @Inject constructor(
             it != null
         }
     }
+
+    override suspend fun insertUser(userModel: UserModel) {
+        val userEntity = userModel.toEntity()
+        localDataSource.insert(userEntity)
+    }
+
+    override suspend fun checkEmailExist(email: String): Flow<Boolean> =
+        localDataSource.checkEmailExist(email)
 }

@@ -7,7 +7,6 @@ package br.com.vaniala.omie.domain.model
  */
 
 data class UserModel(
-    val id: Long,
     val name: String,
     val email: String,
     val password: String,

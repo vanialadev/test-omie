@@ -25,7 +25,11 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                viewModel.isLoading.value
+            }
+        }
         setContentView(binding.root)
 
         lifecycleScope.launch {

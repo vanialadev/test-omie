@@ -30,4 +30,7 @@ interface UserDao {
         email: String,
         password: String,
     ): Flow<UserEntity?>
+
+    @Query("SELECT EXISTS(SELECT * FROM USER WHERE email = :email)")
+    fun checkEmailExist(email: String): Flow<Boolean>
 }
