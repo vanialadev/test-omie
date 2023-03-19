@@ -4,6 +4,7 @@ import br.com.vaniala.omie.data.datasource.local.LocalDataSource
 import br.com.vaniala.omie.data.mapper.toEntity
 import br.com.vaniala.omie.data.mapper.toModel
 import br.com.vaniala.omie.data.utils.DATASTORE_LOGGED_EMAIL_KEY
+import br.com.vaniala.omie.data.utils.DATASTORE_LOGGED_ID_KEY
 import br.com.vaniala.omie.data.utils.DatastoreManager
 import br.com.vaniala.omie.domain.model.UserModel
 import br.com.vaniala.omie.domain.repository.UserRepository
@@ -33,15 +34,25 @@ class UserRepositoryImpl @Inject constructor(
         datastore.addToDatastore(DATASTORE_LOGGED_EMAIL_KEY, email)
     }
 
+    override suspend fun addIdDataStore(id: Long) {
+        datastore.addToDatastore(DATASTORE_LOGGED_ID_KEY, id.toString())
+    }
+
     override fun isLogged(): Flow<Boolean> {
         return datastore.observeKeyValue(DATASTORE_LOGGED_EMAIL_KEY).map {
             it != null
         }
     }
 
-    override suspend fun insertUser(userModel: UserModel) {
+    override fun getId(): Flow<Long?> {
+        return datastore.observeKeyValue(DATASTORE_LOGGED_ID_KEY).map {
+            it?.toLong()
+        }
+    }
+
+    override suspend fun insertUser(userModel: UserModel): Long {
         val userEntity = userModel.toEntity()
-        localDataSource.insert(userEntity)
+        return localDataSource.insert(userEntity)
     }
 
     override fun checkEmailExist(email: String): Flow<Boolean> =

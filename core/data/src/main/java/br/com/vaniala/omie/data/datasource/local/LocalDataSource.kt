@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 interface LocalDataSource {
 
     interface Login {
-        suspend fun insert(userEntity: UserEntity)
+        suspend fun insert(userEntity: UserEntity): Long
 
         fun searchByEmail(email: String): Flow<UserEntity?>
 
@@ -30,6 +30,6 @@ interface LocalDataSource {
 
     interface Order {
 
-        fun getAllOrders(idUser: Long): Flow<List<OrderEntity>>
+        fun getAllOrdersByUser(idUser: Long): Flow<List<OrderEntity>>
     }
 }

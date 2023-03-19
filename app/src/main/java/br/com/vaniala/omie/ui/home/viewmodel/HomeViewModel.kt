@@ -2,15 +2,12 @@ package br.com.vaniala.omie.ui.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.vaniala.omie.domain.usecase.login.GetIdUserCase
 import br.com.vaniala.omie.domain.usecase.login.IsLoggedUserCase
+import br.com.vaniala.omie.domain.usecase.order.GetAllOrdersByUserUseCase
 import br.com.vaniala.omie.ui.home.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,6 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val isLoggedUserCase: IsLoggedUserCase,
+    private val getIdUserCase: GetIdUserCase,
+    private val getAllOrdersByUserUseCase: GetAllOrdersByUserUseCase,
 ) : ViewModel() {
     private val _logout = MutableSharedFlow<Unit>()
     val logout: Flow<Unit> = _logout
@@ -31,16 +30,46 @@ class HomeViewModel @Inject constructor(
     val isLoading = _isLoading.asStateFlow()
 
     private val _uiState = MutableSharedFlow<HomeState>()
-    val uiState: Flow<HomeState> = _uiState
+    val uiState: Flow<HomeState> = _uiState.distinctUntilChanged()
+
+    private fun getOrders(idUser: Long) {
+        viewModelScope.launch {
+            _uiState.emit(HomeState.Loading)
+            try {
+                getAllOrdersByUserUseCase(idUser).onEach { orders ->
+                    if (orders.isEmpty()) {
+                        _uiState.emit(HomeState.EmptyList("Nenhum pedido encontrado"))
+                    } else {
+                        _uiState.emit(HomeState.Success(orders))
+                    }
+                }.launchIn(this)
+            } catch (e: Throwable) {
+                Timber.e("HomeViewModel: failed, exception: ${e.message}")
+                _uiState.emit(HomeState.Error("Erro ao buscar pedidos"))
+            }
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Timber.d("HomeViewModel: onCleared")
+    }
 
     init {
         viewModelScope.launch {
+            Timber.d("HomeViewModel: init viewmode")
             isLoggedUserCase().onEach { isLogged ->
                 Timber.d(isLogged.toString())
                 if (isLogged) {
                     _isLoading.value = false
                 } else {
                     _logout.emit(Unit)
+                }
+            }.launchIn(this)
+
+            getIdUserCase().onEach { id ->
+                id?.let {
+                    getOrders(it)
                 }
             }.launchIn(this)
         }

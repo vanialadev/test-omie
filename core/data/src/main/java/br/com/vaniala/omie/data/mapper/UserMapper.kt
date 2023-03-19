@@ -17,6 +17,7 @@ fun UserModel.toEntity() = UserEntity(
 )
 
 fun UserEntity.toModel() = UserModel(
+    idUser = idUser,
     name = name,
     email = email,
     password = password,

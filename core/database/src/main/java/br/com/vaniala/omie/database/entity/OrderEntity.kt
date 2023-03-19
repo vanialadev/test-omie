@@ -19,7 +19,7 @@ import androidx.room.*
     indices = [Index("id_user")],
 )
 data class OrderEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_order")
     val idOrder: Long = 0L,
     val totalPrice: Double,

@@ -14,10 +14,11 @@ interface UserRepository {
     fun searchByEmail(email: String): Flow<UserModel?>
 
     suspend fun addEmailDataStore(email: String)
-
+    suspend fun addIdDataStore(id: Long)
     fun isLogged(): Flow<Boolean>
+    fun getId(): Flow<Long?>
 
-    suspend fun insertUser(userModel: UserModel)
+    suspend fun insertUser(userModel: UserModel): Long
 
     fun checkEmailExist(email: String): Flow<Boolean>
 }

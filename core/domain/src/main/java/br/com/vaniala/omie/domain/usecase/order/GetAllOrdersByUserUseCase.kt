@@ -10,9 +10,9 @@ import javax.inject.Inject
  * on 19/03/23.
  *
  */
-class SearchOrdersUseCase @Inject constructor(
+class GetAllOrdersByUserUseCase @Inject constructor(
     private val orderRepository: OrderRepository,
 ) {
     operator fun invoke(idUser: Long): Flow<List<OrderModel>> =
-        orderRepository.getAllOrders(idUser)
+        orderRepository.getAllOrdersByUser(idUser)
 }

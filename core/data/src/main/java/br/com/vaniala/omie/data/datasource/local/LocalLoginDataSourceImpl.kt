@@ -13,9 +13,8 @@ import javax.inject.Inject
 class LocalLoginDataSourceImpl @Inject constructor(
     private val userDao: UserDao,
 ) : LocalDataSource.Login {
-    override suspend fun insert(userEntity: UserEntity) {
+    override suspend fun insert(userEntity: UserEntity) =
         userDao.insert(userEntity)
-    }
 
     override fun searchByEmail(email: String): Flow<UserEntity?> =
         userDao.searchByEmail(email)

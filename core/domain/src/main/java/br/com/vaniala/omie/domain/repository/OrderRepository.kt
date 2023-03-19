@@ -10,5 +10,5 @@ import kotlinx.coroutines.flow.Flow
  */
 interface OrderRepository {
 
-    fun getAllOrders(idUser: Long): Flow<List<OrderModel>>
+    fun getAllOrdersByUser(idUser: Long): Flow<List<OrderModel>>
 }

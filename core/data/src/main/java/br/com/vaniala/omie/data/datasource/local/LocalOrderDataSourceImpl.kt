@@ -14,6 +14,6 @@ class LocalOrderDataSourceImpl @Inject constructor(
     private val orderDao: OrderDao,
 ) : LocalDataSource.Order {
 
-    override fun getAllOrders(idUser: Long): Flow<List<OrderEntity>> =
+    override fun getAllOrdersByUser(idUser: Long): Flow<List<OrderEntity>> =
         orderDao.getAll(idUser)
 }

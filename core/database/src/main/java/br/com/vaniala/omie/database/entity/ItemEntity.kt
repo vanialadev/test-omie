@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "item")
 data class ItemEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_item")
     val idItem: Long = 0L,
     val name: String,

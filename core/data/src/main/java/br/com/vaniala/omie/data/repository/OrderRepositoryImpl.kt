@@ -15,8 +15,8 @@ class OrderRepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource.Order,
 ) : OrderRepository {
 
-    override fun getAllOrders(idUser: Long) =
-        localDataSource.getAllOrders(idUser).map { ordersEntity ->
+    override fun getAllOrdersByUser(idUser: Long) =
+        localDataSource.getAllOrdersByUser(idUser).map { ordersEntity ->
             ordersEntity.map { it.toModel() }
         }
 }

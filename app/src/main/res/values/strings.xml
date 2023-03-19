@@ -23,6 +23,8 @@
     <string name="add_order">Adicionar pedido</string>
     <string name="new_order">Novo pedido</string>
     <string name="order_name">Pedido %s</string>
+    <string name="empty_list">Lista vazia</string>
+    <string name="loading">Carregando...</string>
 
 <!--    new_order-->
     <string name="title_new_order">Novo Pedido</string>

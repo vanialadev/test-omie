@@ -16,7 +16,7 @@ import kotlinx.parcelize.Parcelize
 )
 @Parcelize
 data class UserEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_user")
     val idUser: Long = 0L,
     val name: String,

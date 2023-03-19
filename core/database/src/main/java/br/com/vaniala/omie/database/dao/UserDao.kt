@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(user: UserEntity)
+    suspend fun insert(user: UserEntity): Long
 
     @Query("SELECT * FROM USER WHERE email = :email")
     fun searchByEmail(email: String): Flow<UserEntity?>
