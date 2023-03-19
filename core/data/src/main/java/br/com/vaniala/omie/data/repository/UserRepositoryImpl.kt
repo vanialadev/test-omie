@@ -1,8 +1,8 @@
 package br.com.vaniala.omie.data.repository
 
 import br.com.vaniala.omie.data.datasource.local.LocalDataSource
-import br.com.vaniala.omie.data.mapperr.toEntity
-import br.com.vaniala.omie.data.mapperr.toModel
+import br.com.vaniala.omie.data.mapper.toEntity
+import br.com.vaniala.omie.data.mapper.toModel
 import br.com.vaniala.omie.data.utils.DATASTORE_LOGGED_EMAIL_KEY
 import br.com.vaniala.omie.data.utils.DatastoreManager
 import br.com.vaniala.omie.domain.model.UserModel

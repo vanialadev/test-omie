@@ -1,4 +1,4 @@
-package br.com.vaniala.omie.data.mapperr
+package br.com.vaniala.omie.data.mapper
 
 import br.com.vaniala.omie.database.entity.UserEntity
 import br.com.vaniala.omie.domain.model.UserModel
@@ -10,11 +10,12 @@ import br.com.vaniala.omie.domain.model.UserModel
  */
 
 fun UserModel.toEntity() = UserEntity(
-    id = 0L,
+    idUser = 0L,
     name = name,
     email = email,
     password = password,
 )
+
 fun UserEntity.toModel() = UserModel(
     name = name,
     email = email,

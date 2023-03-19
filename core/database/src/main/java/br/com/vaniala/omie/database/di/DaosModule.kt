@@ -1,5 +1,8 @@
 package br.com.vaniala.omie.database.di
 
+import br.com.vaniala.omie.database.dao.ItemDao
+import br.com.vaniala.omie.database.dao.OrderDao
+import br.com.vaniala.omie.database.dao.OrderWithItemDao
 import br.com.vaniala.omie.database.dao.UserDao
 import br.com.vaniala.omie.database.db.OmieDatabase
 import dagger.Module
@@ -20,4 +23,19 @@ object DaosModule {
     fun providesUserDao(
         db: OmieDatabase,
     ): UserDao = db.userDao()
+
+    @Provides
+    fun providesOrderDao(
+        db: OmieDatabase,
+    ): OrderDao = db.orderDao()
+
+    @Provides
+    fun providesItemDao(
+        db: OmieDatabase,
+    ): ItemDao = db.itemDao()
+
+    @Provides
+    fun providesOrderWithItemDao(
+        db: OmieDatabase,
+    ): OrderWithItemDao = db.orderWithItemDao()
 }

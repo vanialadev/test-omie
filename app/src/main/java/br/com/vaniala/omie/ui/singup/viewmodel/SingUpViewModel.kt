@@ -3,7 +3,6 @@ package br.com.vaniala.omie.ui.singup.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.vaniala.omie.domain.model.UserModel
-import br.com.vaniala.omie.domain.usecase.Result
 import br.com.vaniala.omie.domain.usecase.SingUpUseCase
 import br.com.vaniala.omie.extensions.isValidEmail
 import br.com.vaniala.omie.extensions.isValidPassword
@@ -36,8 +35,8 @@ class SingUpViewModel @Inject constructor(
         if (validateInputs(userModel)) {
             viewModelScope.launch {
                 when (singUpUseCase(userModel)) {
-                    Result.Failure -> _error.emit(Unit)
-                    Result.Success -> _singUpSuccess.emit(Unit)
+                    SingUpUseCase.Result.Failure -> _error.emit(Unit)
+                    SingUpUseCase.Result.Success -> _singUpSuccess.emit(Unit)
                 }
             }
         }

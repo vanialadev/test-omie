@@ -25,9 +25,9 @@ class SingUpUseCase @Inject constructor(
             Result.Failure
         }
     }
-}
 
-sealed class Result {
-    object Success : Result()
-    object Failure : Result()
+    sealed class Result {
+        object Success : Result()
+        object Failure : Result()
+    }
 }
