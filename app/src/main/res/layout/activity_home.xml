@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:contentDescription="@string/sing_in"
+        android:contentDescription="@string/add_order"
         android:focusable="true"
         android:text="@string/new_order"
         app:icon="@drawable/ic_action_add"

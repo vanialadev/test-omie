@@ -3,16 +3,34 @@
     <string name="omie">Omie</string>
     <string name="email">Email</string>
     <string name="password">Senha</string>
-    <string name="sing_in">Entrar</string>
-    <string name="sing_up_user">Cadastrar usuário</string>
-    <string name="image_logo">imagem logo</string>
-    <string name="name">Nome</string>
-    <string name="register_success">Registrado successo!</string>
-    <string name="sing_up_error">Erro ao registrar</string>
-    <string name="sing_in_error">Erro ao logar</string>
     <string name="invalid_email">Email inválido</string>
     <string name="invalid_password">Senha inválida</string>
+
+    <!--    sing in-->
+    <string name="sing_in">Entrar</string>
+    <string name="image_logo">imagem logo</string>
+    <string name="sing_in_error">Erro ao logar</string>
+
+    <!--    sing up-->
+    <string name="title_sing_up">Cadastrar usuário</string>
+    <string name="sing_up_user">Cadastrar usuário</string>
+    <string name="register_success">Registrado successo!</string>
+    <string name="sing_up_error">Erro ao registrar</string>
+    <string name="name">Nome</string>
+
+    <!--    home-->
+    <string name="title_home">Pedidos</string>
     <string name="add_order">Adicionar pedido</string>
     <string name="new_order">Novo pedido</string>
     <string name="order_name">Pedido %s</string>
+
+<!--    new_order-->
+    <string name="title_new_order">Novo Pedido</string>
+    <string name="name_client">Nome do cliente</string>
+    <string name="add_item">Adicionar produto</string>
+    <string name="new_item">Novo produto</string>
+    <string name="save_order">Salvar produto</string>
+    <string name="price_item">Valor: R$ %s</string>
+    <string name="quantity">Qtd: %s</string>
+
 </resources>

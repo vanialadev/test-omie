@@ -6,11 +6,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import br.com.vaniala.omie.R
 import br.com.vaniala.omie.databinding.ActivityHomeBinding
 import br.com.vaniala.omie.domain.model.OrderModel
 import br.com.vaniala.omie.extensions.goTo
 import br.com.vaniala.omie.ui.home.adapter.HomeAdapter
 import br.com.vaniala.omie.ui.home.viewmodel.HomeViewModel
+import br.com.vaniala.omie.ui.order.NewOrderActivity
 import br.com.vaniala.omie.ui.singin.SingInActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -38,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         setContentView(binding.root)
-
+        title = getString(R.string.title_home)
         setRecyclerView()
         setFabButton()
 
@@ -67,8 +69,8 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setFabButton() {
         binding.activityHomeExtendFab.setOnClickListener {
-            Toast.makeText(this, "click fab", Toast.LENGTH_SHORT).show()
             Timber.d("click")
+            goTo(NewOrderActivity::class.java)
         }
     }
 }

@@ -31,7 +31,7 @@ class SingUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        title = resources.getString(R.string.sing_up_user)
+        title = resources.getString(R.string.title_sing_up)
 
         setSingUpButton()
 
