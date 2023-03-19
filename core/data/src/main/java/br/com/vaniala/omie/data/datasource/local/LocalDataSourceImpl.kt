@@ -1,6 +1,8 @@
 package br.com.vaniala.omie.data.datasource.local
 
+import br.com.vaniala.omie.database.dao.ItemDao
 import br.com.vaniala.omie.database.dao.UserDao
+import br.com.vaniala.omie.database.entity.ItemEntity
 import br.com.vaniala.omie.database.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -12,6 +14,7 @@ import javax.inject.Inject
  */
 class LocalDataSourceImpl @Inject constructor(
     private val userDao: UserDao,
+    private val itemDao: ItemDao,
 ) : LocalDataSource {
     override suspend fun insert(userEntity: UserEntity) {
         userDao.insert(userEntity)
@@ -25,4 +28,11 @@ class LocalDataSourceImpl @Inject constructor(
 
     override fun checkEmailExist(email: String): Flow<Boolean> =
         userDao.checkEmailExist(email)
+
+    override suspend fun insertAllItems(itemsEntity: List<ItemEntity>) {
+        itemDao.insertAll(itemsEntity)
+    }
+
+    override fun getAllItems(): Flow<List<ItemEntity>> =
+        itemDao.getAll()
 }

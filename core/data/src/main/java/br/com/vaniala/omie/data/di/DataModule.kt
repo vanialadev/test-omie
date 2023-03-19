@@ -2,6 +2,7 @@ package br.com.vaniala.omie.data.di
 
 import br.com.vaniala.omie.data.datasource.local.LocalDataSource
 import br.com.vaniala.omie.data.datasource.local.LocalDataSourceImpl
+import br.com.vaniala.omie.database.dao.ItemDao
 import br.com.vaniala.omie.database.dao.UserDao
 import br.com.vaniala.omie.domain.repository.UserRepository
 import br.com.vaniala.omie.domain.usecase.IsLoggedUserCase
@@ -25,8 +26,9 @@ object DataModule {
     @Provides
     fun providesLocalDataSource(
         userDao: UserDao,
+        itemDao: ItemDao,
     ): LocalDataSource {
-        return LocalDataSourceImpl(userDao)
+        return LocalDataSourceImpl(userDao, itemDao)
     }
 
     @Provides
