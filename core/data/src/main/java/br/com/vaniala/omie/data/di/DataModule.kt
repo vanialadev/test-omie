@@ -1,11 +1,14 @@
 package br.com.vaniala.omie.data.di
 
 import br.com.vaniala.omie.data.datasource.local.LocalDataSource
-import br.com.vaniala.omie.data.datasource.local.LocalDataSourceImpl
+import br.com.vaniala.omie.data.datasource.local.LocalItemDataSourceImpl
+import br.com.vaniala.omie.data.datasource.local.LocalLoginDataSourceImpl
+import br.com.vaniala.omie.data.datasource.local.LocalOrderDataSourceImpl
 import br.com.vaniala.omie.database.dao.ItemDao
+import br.com.vaniala.omie.database.dao.OrderDao
 import br.com.vaniala.omie.database.dao.UserDao
 import br.com.vaniala.omie.domain.repository.UserRepository
-import br.com.vaniala.omie.domain.usecase.IsLoggedUserCase
+import br.com.vaniala.omie.domain.usecase.login.IsLoggedUserCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,9 +29,24 @@ object DataModule {
     @Provides
     fun providesLocalDataSource(
         userDao: UserDao,
+    ): LocalDataSource.Login {
+        return LocalLoginDataSourceImpl(userDao)
+    }
+
+    @Singleton
+    @Provides
+    fun providesItemDataSource(
         itemDao: ItemDao,
-    ): LocalDataSource {
-        return LocalDataSourceImpl(userDao, itemDao)
+    ): LocalDataSource.Item {
+        return LocalItemDataSourceImpl(itemDao)
+    }
+
+    @Singleton
+    @Provides
+    fun providesOrderDataSource(
+        orderDao: OrderDao,
+    ): LocalDataSource.Order {
+        return LocalOrderDataSourceImpl(orderDao)
     }
 
     @Provides

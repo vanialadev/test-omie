@@ -1,5 +1,6 @@
-package br.com.vaniala.omie.domain.usecase
+package br.com.vaniala.omie.domain.usecase.login
 
+import br.com.vaniala.omie.domain.model.UserModel
 import br.com.vaniala.omie.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -9,9 +10,9 @@ import javax.inject.Inject
  * on 17/03/23.
  *
  */
-class IsLoggedUserCase @Inject constructor(
+class SearchUserByEmailUseCase @Inject constructor(
     private val userRepository: UserRepository,
 ) {
-    suspend operator fun invoke(): Flow<Boolean> =
-        userRepository.isLogged()
+    operator fun invoke(email: String): Flow<UserModel?> =
+        userRepository.searchByEmail(email)
 }

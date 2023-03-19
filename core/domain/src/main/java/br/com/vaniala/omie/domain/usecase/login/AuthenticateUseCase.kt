@@ -1,4 +1,4 @@
-package br.com.vaniala.omie.domain.usecase
+package br.com.vaniala.omie.domain.usecase.login
 
 import kotlinx.coroutines.flow.firstOrNull
 import timber.log.Timber

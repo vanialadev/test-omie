@@ -1,7 +1,10 @@
 package br.com.vaniala.omie.data.di
 
 import br.com.vaniala.omie.data.repository.ItemRepositoryImpl
+import br.com.vaniala.omie.data.repository.OrderRepositoryImpl
 import br.com.vaniala.omie.data.repository.UserRepositoryImpl
+import br.com.vaniala.omie.domain.repository.ItemRepository
+import br.com.vaniala.omie.domain.repository.OrderRepository
 import br.com.vaniala.omie.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -28,5 +31,11 @@ interface BindsModule {
     @Singleton
     fun bindsItemRepository(
         itemRepositoryImpl: ItemRepositoryImpl,
-    ): ItemRepositoryImpl
+    ): ItemRepository
+
+    @Binds
+    @Singleton
+    fun bindsOrderRepository(
+        orderRepositoryImpl: OrderRepositoryImpl,
+    ): OrderRepository
 }

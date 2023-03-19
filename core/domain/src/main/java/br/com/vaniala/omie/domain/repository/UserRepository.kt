@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.Flow
 interface UserRepository {
     suspend fun authenticate(email: String, password: String)
 
-    suspend fun searchByEmail(email: String): Flow<UserModel?>
+    fun searchByEmail(email: String): Flow<UserModel?>
 
     suspend fun addEmailDataStore(email: String)
 
-    suspend fun isLogged(): Flow<Boolean>
+    fun isLogged(): Flow<Boolean>
 
     suspend fun insertUser(userModel: UserModel)
 
-    suspend fun checkEmailExist(email: String): Flow<Boolean>
+    fun checkEmailExist(email: String): Flow<Boolean>
 }

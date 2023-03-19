@@ -15,7 +15,7 @@ import javax.inject.Inject
  *
  */
 class ItemRepositoryImpl @Inject constructor(
-    private val localDataSource: LocalDataSource,
+    private val localDataSource: LocalDataSource.Item,
 ) : ItemRepository {
     override suspend fun insertAll(itemsModel: List<ItemModel>) {
         val itemsEntity = itemsModel.map { it.toEntity() }

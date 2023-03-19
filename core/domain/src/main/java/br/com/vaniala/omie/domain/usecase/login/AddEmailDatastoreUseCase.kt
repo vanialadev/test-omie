@@ -1,4 +1,4 @@
-package br.com.vaniala.omie.domain.usecase
+package br.com.vaniala.omie.domain.usecase.login
 
 import br.com.vaniala.omie.domain.repository.UserRepository
 import javax.inject.Inject

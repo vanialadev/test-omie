@@ -1,6 +1,7 @@
 package br.com.vaniala.omie.data.datasource.local
 
 import br.com.vaniala.omie.database.entity.ItemEntity
+import br.com.vaniala.omie.database.entity.OrderEntity
 import br.com.vaniala.omie.database.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -10,14 +11,25 @@ import kotlinx.coroutines.flow.Flow
  *
  */
 interface LocalDataSource {
-    suspend fun insert(userEntity: UserEntity)
 
-    fun searchByEmail(email: String): Flow<UserEntity?>
+    interface Login {
+        suspend fun insert(userEntity: UserEntity)
 
-    fun authenticate(email: String, password: String): Flow<UserEntity?>
-    fun checkEmailExist(email: String): Flow<Boolean>
+        fun searchByEmail(email: String): Flow<UserEntity?>
 
-    suspend fun insertAllItems(itemsEntity: List<ItemEntity>)
+        fun authenticate(email: String, password: String): Flow<UserEntity?>
+        fun checkEmailExist(email: String): Flow<Boolean>
+    }
 
-    fun getAllItems(): Flow<List<ItemEntity>>
+    interface Item {
+
+        suspend fun insertAllItems(itemsEntity: List<ItemEntity>)
+
+        fun getAllItems(): Flow<List<ItemEntity>>
+    }
+
+    interface Order {
+
+        fun getAllOrders(idUser: Long): Flow<List<OrderEntity>>
+    }
 }

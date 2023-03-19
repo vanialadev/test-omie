@@ -1,4 +1,4 @@
-package br.com.vaniala.omie.domain.usecase
+package br.com.vaniala.omie.domain.usecase.login
 
 import br.com.vaniala.omie.domain.model.UserModel
 import timber.log.Timber

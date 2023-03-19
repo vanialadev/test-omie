@@ -2,7 +2,8 @@ package br.com.vaniala.omie.ui.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.vaniala.omie.domain.usecase.IsLoggedUserCase
+import br.com.vaniala.omie.domain.usecase.login.IsLoggedUserCase
+import br.com.vaniala.omie.ui.home.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -28,6 +29,9 @@ class HomeViewModel @Inject constructor(
 
     private val _isLoading = MutableStateFlow(true)
     val isLoading = _isLoading.asStateFlow()
+
+    private val _uiState = MutableSharedFlow<HomeState>()
+    val uiState: Flow<HomeState> = _uiState
 
     init {
         viewModelScope.launch {

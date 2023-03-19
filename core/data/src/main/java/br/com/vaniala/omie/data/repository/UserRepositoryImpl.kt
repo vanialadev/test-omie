@@ -17,7 +17,7 @@ import javax.inject.Inject
  *
  */
 class UserRepositoryImpl @Inject constructor(
-    private val localDataSource: LocalDataSource,
+    private val localDataSource: LocalDataSource.Login,
     private val datastore: DatastoreManager,
 ) : UserRepository {
 
@@ -25,7 +25,7 @@ class UserRepositoryImpl @Inject constructor(
         localDataSource.authenticate(email, password)
     }
 
-    override suspend fun searchByEmail(email: String): Flow<UserModel?> {
+    override fun searchByEmail(email: String): Flow<UserModel?> {
         return localDataSource.searchByEmail(email).map { it?.toModel() }
     }
 
@@ -33,7 +33,7 @@ class UserRepositoryImpl @Inject constructor(
         datastore.addToDatastore(DATASTORE_LOGGED_EMAIL_KEY, email)
     }
 
-    override suspend fun isLogged(): Flow<Boolean> {
+    override fun isLogged(): Flow<Boolean> {
         return datastore.observeKeyValue(DATASTORE_LOGGED_EMAIL_KEY).map {
             it != null
         }
@@ -44,6 +44,6 @@ class UserRepositoryImpl @Inject constructor(
         localDataSource.insert(userEntity)
     }
 
-    override suspend fun checkEmailExist(email: String): Flow<Boolean> =
+    override fun checkEmailExist(email: String): Flow<Boolean> =
         localDataSource.checkEmailExist(email)
 }

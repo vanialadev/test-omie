@@ -2,7 +2,7 @@ package br.com.vaniala.omie.ui.singin.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.vaniala.omie.domain.usecase.AuthenticateUseCase
+import br.com.vaniala.omie.domain.usecase.login.AuthenticateUseCase
 import br.com.vaniala.omie.extensions.isValidEmail
 import br.com.vaniala.omie.extensions.isValidPassword
 import br.com.vaniala.omie.utils.ValidationState
