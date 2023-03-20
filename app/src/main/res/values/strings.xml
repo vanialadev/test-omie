@@ -14,7 +14,7 @@
     <!--    sing up-->
     <string name="title_sing_up">Cadastrar usuário</string>
     <string name="sing_up_user">Cadastrar usuário</string>
-    <string name="register_success">Registrado successo!</string>
+    <string name="register_success">Registrado com successo!</string>
     <string name="sing_up_error">Erro ao registrar</string>
     <string name="name">Nome</string>
 
@@ -25,6 +25,9 @@
     <string name="order_name">Pedido %s</string>
     <string name="empty_list">Lista vazia</string>
     <string name="loading">Carregando...</string>
+    <string name="logged_in_logout">Logout</string>
+    <string name="logged_in_title">Logged in!</string>
+    <string name="total_orders">Total de vendas: R$%s</string>
 
 <!--    new_order-->
     <string name="title_new_order">Novo Pedido</string>
@@ -34,5 +37,10 @@
     <string name="save_order">Salvar produto</string>
     <string name="price_item">Valor: R$ %s</string>
     <string name="quantity">Qtd: %s</string>
+    <string name="total_items">Total de itens: %s</string>
+    <string name="total_price">Total: %s</string>
+    <string name="name_required">Nome obrigatório</string>
+    <string name="add_least_a_item">Adicione um produto</string>
+
 
 </resources>

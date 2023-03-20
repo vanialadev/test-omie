@@ -1,14 +1,14 @@
 package br.com.vaniala.omie.ui.home
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import br.com.vaniala.omie.R
 import br.com.vaniala.omie.databinding.ActivityHomeBinding
 import br.com.vaniala.omie.extensions.goTo
@@ -47,54 +47,75 @@ class HomeActivity : AppCompatActivity() {
         setFabButton()
 
         lifecycleScope.launch {
+            viewModel.price.onEach {
+                binding.activityHomeTotalOrdersText.text =
+                    getString(R.string.total_orders, it.toString())
+            }.launchIn(this)
+        }
+
+        lifecycleScope.launch {
             viewModel.logout.onEach {
                 goTo(SingInActivity::class.java)
             }.launchIn(this)
-
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState
-                    .onEach {
-                        when (it) {
-                            is HomeState.Loading -> {
-                                Timber.d("Loading")
-                                binding.activityHomeInfoText.visibility = View.VISIBLE
-                                binding.activityHomeRecyclerView.visibility = View.GONE
-                                binding.activityHomeInfoText.text = getString(R.string.loading)
-                            }
-                            is HomeState.Success -> {
-                                adapter.orders = it.orders
-                                Timber.d("Success")
-                                binding.activityHomeInfoText.visibility = View.GONE
-                                binding.activityHomeRecyclerView.visibility = View.VISIBLE
-                            }
-                            is HomeState.EmptyList -> {
-                                Timber.d("EmptyList")
-                                binding.activityHomeInfoText.visibility = View.VISIBLE
-                                binding.activityHomeRecyclerView.visibility = View.GONE
-                                binding.activityHomeInfoText.text = getString(R.string.empty_list)
-                            }
-                            is HomeState.Error -> {
-                                Toast.makeText(
-                                    this@HomeActivity,
-                                    it.message,
-                                    Toast.LENGTH_SHORT,
-                                )
-                                    .show()
-                                Timber.d("Error")
-                            }
-                        }
-                    }
-                    .launchIn(this)
-            }
         }
 
-        // Update the uiState
+        lifecycleScope.launch {
+            viewModel.uiState
+                .onEach {
+                    when (it) {
+                        is HomeState.Loading -> {
+                            Timber.d("Loading")
+                            binding.activityHomeInfoText.visibility = View.VISIBLE
+                            binding.activityHomeRecyclerView.visibility = View.GONE
+                            binding.activityHomeInfoText.text = getString(R.string.loading)
+                        }
+                        is HomeState.Success -> {
+                            adapter.orders = it.orders
+                            Timber.d("Success")
+                            binding.activityHomeInfoText.visibility = View.GONE
+                            binding.activityHomeRecyclerView.visibility = View.VISIBLE
+                        }
+                        is HomeState.EmptyList -> {
+                            Timber.d("EmptyList")
+                            binding.activityHomeInfoText.visibility = View.VISIBLE
+                            binding.activityHomeRecyclerView.visibility = View.GONE
+                            binding.activityHomeInfoText.text = getString(R.string.empty_list)
+                        }
+                        is HomeState.Error -> {
+                            Toast.makeText(
+                                this@HomeActivity,
+                                it.message,
+                                Toast.LENGTH_SHORT,
+                            )
+                                .show()
+                            Timber.d("Error")
+                        }
+                    }
+                }
+                .launchIn(this)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.logout, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.logout -> {
+                viewModel.logOutClicked()
+            }
+            else -> {
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setRecyclerView() {
         binding.activityHomeRecyclerView.adapter = adapter
         adapter.clickItem = {
-            Toast.makeText(this, "click item ${it.idOrder}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Valor R$:${it.totalPrice}", Toast.LENGTH_SHORT).show()
             Timber.d("click")
         }
     }
@@ -102,6 +123,7 @@ class HomeActivity : AppCompatActivity() {
     private fun setFabButton() {
         binding.activityHomeExtendFab.setOnClickListener {
             Timber.d("click")
+//            finish()
             goTo(NewOrderActivity::class.java)
         }
     }

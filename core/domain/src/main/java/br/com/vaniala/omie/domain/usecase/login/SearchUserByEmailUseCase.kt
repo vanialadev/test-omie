@@ -10,9 +10,9 @@ import javax.inject.Inject
  * on 17/03/23.
  *
  */
-class SearchUserByEmailUseCase @Inject constructor(
+open class SearchUserByEmailUseCase @Inject constructor(
     private val userRepository: UserRepository,
 ) {
-    operator fun invoke(email: String): Flow<UserModel?> =
+    open operator fun invoke(email: String): Flow<UserModel?> =
         userRepository.searchByEmail(email)
 }

@@ -90,6 +90,7 @@ class SingInActivity : AppCompatActivity() {
         goTo(SingUpActivity::class.java)
     }
     private fun goToHome() {
+        finish()
         goTo(HomeActivity::class.java)
     }
 

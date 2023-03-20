@@ -9,11 +9,12 @@ import javax.inject.Inject
  * on 17/03/23.
  *
  */
-class AuthenticateUseCase @Inject constructor(
+open class AuthenticateUseCase @Inject constructor(
     private val searchUserByEmailUseCase: SearchUserByEmailUseCase,
     private val addEmailDatastoreUseCase: AddEmailDatastoreUseCase,
+    private val addIdlDatastoreUseCase: AddIdlDatastoreUseCase,
 ) {
-    suspend operator fun invoke(email: String, password: String): Result {
+    open suspend operator fun invoke(email: String, password: String): Result {
         try {
             if (checkPasswordMatchers(email, password)) return Result.Failure
             addEmailDatastoreUseCase(email)
@@ -34,6 +35,7 @@ class AuthenticateUseCase @Inject constructor(
             Timber.e("AuthenticateUseCase: failed, passwords do not match")
             return true
         }
+        addIdlDatastoreUseCase(userModel.idUser)
         return false
     }
 

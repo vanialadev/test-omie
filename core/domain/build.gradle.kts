@@ -48,4 +48,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso)
+
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.mockito)
 }

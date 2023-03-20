@@ -14,13 +14,31 @@ class NewOrderViewHolder(
     private val binding: ItemOrderItemBinding,
 ) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: ItemModel, clickItem: (ItemModel) -> Unit) {
+    fun bind(
+        item: ItemModel,
+        quantity: Int,
+        priceTotal: Double,
+        clickItem: (ItemModel) -> Unit,
+        clickItemPlus: (ItemModel) -> Unit,
+        clickItemMinus: (ItemModel) -> Unit,
+    ) {
         binding.root.setOnClickListener {
             clickItem(item)
         }
         binding.itemOrderItemName.text = item.name
 
         binding.itemOrderItemQuantity.text =
-            binding.root.context.getString(R.string.quantity, "0")
+            binding.root.context.getString(R.string.quantity, quantity.toString())
+
+        binding.itemOrderItemTotalPrice.text =
+            binding.root.context.getString(R.string.price_item, priceTotal.toString())
+
+        binding.itemOrderItemPlus.setOnClickListener {
+            clickItemPlus(item)
+        }
+
+        binding.itemOrderItemMinus.setOnClickListener {
+            clickItemMinus(item)
+        }
     }
 }

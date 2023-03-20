@@ -21,4 +21,6 @@ interface UserRepository {
     suspend fun insertUser(userModel: UserModel): Long
 
     fun checkEmailExist(email: String): Flow<Boolean>
+
+    suspend fun removeFromDatastore()
 }

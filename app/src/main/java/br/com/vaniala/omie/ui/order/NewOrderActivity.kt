@@ -2,16 +2,23 @@ package br.com.vaniala.omie.ui.order
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import br.com.vaniala.omie.R
 import br.com.vaniala.omie.databinding.ActivityNewOrderBinding
 import br.com.vaniala.omie.databinding.BottomSheetLayoutBinding
-import br.com.vaniala.omie.domain.model.ItemModel
-import br.com.vaniala.omie.ui.order.adapter.BottomSheetAdapter
 import br.com.vaniala.omie.ui.order.adapter.NewOrderAdapter
+import br.com.vaniala.omie.ui.order.adapter.bottomsheet.BottomSheetAdapter
+import br.com.vaniala.omie.ui.order.viewmodel.NewOrdersViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
+@AndroidEntryPoint
 class NewOrderActivity : AppCompatActivity() {
 
     private val binding by lazy {
@@ -21,6 +28,9 @@ class NewOrderActivity : AppCompatActivity() {
     private val adapter: NewOrderAdapter by lazy {
         NewOrderAdapter()
     }
+
+    private val viewModel: NewOrdersViewModel by viewModels()
+
     private var bottomSheetDialog: BottomSheetDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,26 +39,78 @@ class NewOrderActivity : AppCompatActivity() {
         title = resources.getString(R.string.title_new_order)
         setRecyclerView()
         setFabButton()
+        setButton()
 
-        adapter.items = listOf(
-            ItemModel(name = "Teclado Mecânico", price = 199.99),
-            ItemModel(name = "Mouse Óptico", price = 29.99),
-            ItemModel(name = "Monitor LED", price = 499.99),
-            ItemModel(name = "Webcam Full HD", price = 79.99),
-            ItemModel(name = "Fone de Ouvido Gamer", price = 149.99),
-            ItemModel(name = "HD Externo", price = 119.99),
-            ItemModel(name = "Placa de Vídeo", price = 799.99),
-            ItemModel(name = "Cooler para Processador", price = 49.99),
-            ItemModel(name = "Memória RAM", price = 149.99),
-            ItemModel(name = "SSD", price = 249.99),
-        )
+        lifecycleScope.launch {
+            viewModel.orderItemsState.collect {
+                adapter.items = it.items
+                binding.activityNewOrderTotalItems.text = it.totalItems.toString()
+                binding.activityNewOrderTotalPrice.text = it.priceTotal.toString()
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.error.collect {
+                Toast.makeText(this@NewOrderActivity, it, Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.itemAdapter.collect {
+                adapter.quantity = it.quantity
+                adapter.priceTotal = it.priceTotal
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.state.onEach { state ->
+                binding.activityNewOrderTextInputLayoutName.error = if (state.isNameValid) {
+                    null
+                } else {
+                    resources.getString(R.string.name_required)
+                }
+                if (!state.isListValid) {
+                    Toast
+                        .makeText(
+                            this@NewOrderActivity,
+                            getString(R.string.add_least_a_item),
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                }
+                Timber.d(state.toString())
+            }.launchIn(this)
+        }
+
+        lifecycleScope.launch {
+            viewModel.saveOrders.onEach {
+                finishActivity()
+            }.launchIn(this)
+        }
     }
+
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        goTo(HomeActivity::class.java)
+//    }
 
     private fun setRecyclerView() {
         binding.activityNewOrderRecyclerView.adapter = adapter
         adapter.clickItem = {
-            Toast.makeText(this, "click item ${it.name}", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "click item ${it.name}", Toast.LENGTH_SHORT).show()
             Timber.d("click")
+        }
+
+        adapter.clickItemPlus = {
+            lifecycleScope.launch {
+                viewModel.updateItemQuantity(it, 1)
+                adapter.notifyItemChanged(adapter.items.indexOf(it))
+            }
+        }
+        adapter.clickItemMinus = {
+            lifecycleScope.launch {
+                viewModel.updateItemQuantity(it, -1)
+                adapter.notifyItemChanged(adapter.items.indexOf(it))
+            }
         }
     }
 
@@ -59,29 +121,46 @@ class NewOrderActivity : AppCompatActivity() {
         }
     }
 
+    private fun setButton() {
+        binding.activityNewOrderButtonSaveOrder.setOnClickListener {
+            val name = binding.activityNewOrderNameClient.text.toString()
+            viewModel.saveOrder(name)
+        }
+    }
+
+    private fun finishActivity() {
+//        goTo(HomeActivity::class.java)
+        finish()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         bottomSheetDialog?.dismiss()
     }
 
     private fun showBottomSheet() {
-        val options = listOf(
-            ItemModel(name = "Processador Intel Core i5", price = 399.99),
-            ItemModel(name = "Placa-Mãe", price = 249.99),
-            ItemModel(name = "Fonte de Alimentação", price = 149.99),
-            ItemModel(name = "Cabo HDMI", price = 14.99),
-            ItemModel(name = "Adaptador USB", price = 9.99),
-            ItemModel(name = "Cadeira Gamer", price = 299.99),
-            ItemModel(name = "Mesa para Computador", price = 199.99),
-            ItemModel(name = "Hub USB", price = 19.99),
-            ItemModel(name = "Leitor de Cartões de Memória", price = 29.99),
-            ItemModel(name = "Estabilizador de Energia", price = 99.99),
-        )
         val bottomSheetView = BottomSheetLayoutBinding.inflate(layoutInflater)
         bottomSheetDialog = BottomSheetDialog(this)
         bottomSheetDialog!!.setContentView(bottomSheetView.root)
 
-        bottomSheetView.bottomSheetRecyclerView.adapter = BottomSheetAdapter(options)
+        bottomSheetView.bottomSheetRecyclerView.adapter = BottomSheetAdapter()
+
+        val bottomSheetAdapter =
+            bottomSheetView.bottomSheetRecyclerView.adapter as BottomSheetAdapter
+
+        lifecycleScope.launch {
+            viewModel.items.collect { items ->
+                bottomSheetAdapter.items = items
+            }
+        }
+
+        bottomSheetAdapter.clickItem = {
+            Timber.d("click")
+            bottomSheetDialog?.dismiss()
+            lifecycleScope.launch {
+                viewModel.addItemToOrder(it)
+            }
+        }
 
         if (!isFinishing) {
             bottomSheetDialog!!.show()

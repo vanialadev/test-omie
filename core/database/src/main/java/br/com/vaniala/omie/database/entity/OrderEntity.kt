@@ -25,4 +25,5 @@ data class OrderEntity(
     val totalPrice: Double,
     @ColumnInfo(name = "id_user")
     val idUser: Long,
+    val name: String,
 )

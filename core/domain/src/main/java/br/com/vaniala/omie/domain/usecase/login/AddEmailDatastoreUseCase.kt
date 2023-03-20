@@ -8,10 +8,10 @@ import javax.inject.Inject
  * on 17/03/23.
  *
  */
-class AddEmailDatastoreUseCase @Inject constructor(
+open class AddEmailDatastoreUseCase @Inject constructor(
     private val userRepository: UserRepository,
 ) {
-    suspend operator fun invoke(email: String) {
+    open suspend operator fun invoke(email: String) {
         userRepository.addEmailDataStore(email)
     }
 }

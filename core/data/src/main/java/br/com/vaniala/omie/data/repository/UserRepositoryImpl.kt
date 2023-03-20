@@ -57,4 +57,9 @@ class UserRepositoryImpl @Inject constructor(
 
     override fun checkEmailExist(email: String): Flow<Boolean> =
         localDataSource.checkEmailExist(email)
+
+    override suspend fun removeFromDatastore() {
+        datastore.removeFromDatastore(DATASTORE_LOGGED_EMAIL_KEY)
+        datastore.removeFromDatastore(DATASTORE_LOGGED_ID_KEY)
+    }
 }

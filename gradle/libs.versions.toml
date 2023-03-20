@@ -19,6 +19,8 @@ room = "2.5.0"
 datastore = "1.0.0"
 lifecycle = "2.6.0"
 activity = "1.4.0"
+coroutinesTest = "1.6.4"
+mockito = "2.2.11"
 
 [libraries]
 androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
@@ -38,6 +40,8 @@ androidx-datstore = { group = "androidx.datastore", name = "datastore-preference
 androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+mockito = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito" }
 
 
 [plugins]

@@ -31,5 +31,9 @@ interface LocalDataSource {
     interface Order {
 
         fun getAllOrdersByUser(idUser: Long): Flow<List<OrderEntity>>
+
+        suspend fun insertOrderWithItems(orderEntity: OrderEntity, items: List<ItemEntity>)
+
+        fun getTotal(idUser: Long): Flow<Double>
     }
 }

@@ -12,10 +12,12 @@ fun OrderModel.toEntity() = OrderEntity(
     idOrder = 0L,
     idUser = idUser,
     totalPrice = totalPrice,
+    name = name,
 )
 
 fun OrderEntity.toModel() = OrderModel(
     idOrder = idOrder,
     idUser = idUser,
     totalPrice = totalPrice,
+    name = name,
 )

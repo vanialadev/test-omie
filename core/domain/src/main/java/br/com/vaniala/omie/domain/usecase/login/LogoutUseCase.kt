@@ -8,10 +8,10 @@ import javax.inject.Inject
  * on 19/03/23.
  *
  */
-open class AddIdlDatastoreUseCase @Inject constructor(
+class LogoutUseCase @Inject constructor(
     private val userRepository: UserRepository,
 ) {
-    open suspend operator fun invoke(id: Long) {
-        userRepository.addIdDataStore(id)
+    suspend operator fun invoke() {
+        userRepository.removeFromDatastore()
     }
 }

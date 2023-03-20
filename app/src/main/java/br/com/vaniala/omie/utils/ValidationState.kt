@@ -8,4 +8,6 @@ package br.com.vaniala.omie.utils
 data class ValidationState(
     val isEmailValid: Boolean = true,
     val isPasswordValid: Boolean = true,
+    val isNameValid: Boolean = true,
+    val isListValid: Boolean = true,
 )

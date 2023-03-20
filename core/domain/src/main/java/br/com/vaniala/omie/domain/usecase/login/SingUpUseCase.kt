@@ -12,15 +12,12 @@ import javax.inject.Inject
 class SingUpUseCase @Inject constructor(
     private val checkEmailUseCase: CheckEmailUseCase,
     private val insertUserToDbUseCase: InsertUserToDbUseCase,
-    private val addIdlDatastoreUseCase: AddIdlDatastoreUseCase,
-
 ) {
     suspend operator fun invoke(userModel: UserModel): Result {
         Timber.d("invoke ${userModel.email}")
         val userExists = checkEmailUseCase(userModel.email)
         return if (!userExists) {
-            val idUser = insertUserToDbUseCase(userModel)
-            addIdlDatastoreUseCase(idUser)
+            insertUserToDbUseCase(userModel)
             Timber.d("Success")
             Result.Success
         } else {

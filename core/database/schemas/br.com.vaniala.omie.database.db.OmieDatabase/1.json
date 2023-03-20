@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "1332a549423bf832e71d815a017c10bb",
+    "identityHash": "812c348b4cee3e9d7c0c429b3fb6d0d1",
     "entities": [
       {
         "tableName": "user",
@@ -44,7 +44,7 @@
       },
       {
         "tableName": "purchase_order",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_order` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `totalPrice` REAL NOT NULL, `id_user` INTEGER NOT NULL, FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_order` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `totalPrice` REAL NOT NULL, `id_user` INTEGER NOT NULL, `name` TEXT NOT NULL, FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "idOrder",
@@ -62,6 +62,12 @@
             "fieldPath": "idUser",
             "columnName": "id_user",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -98,7 +104,7 @@
       },
       {
         "tableName": "item",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_item` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `price` REAL NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_item` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `price` REAL NOT NULL, `quantity` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "idItem",
@@ -116,6 +122,12 @@
             "fieldPath": "price",
             "columnName": "price",
             "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantity",
+            "columnName": "quantity",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -175,7 +187,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1332a549423bf832e71d815a017c10bb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '812c348b4cee3e9d7c0c429b3fb6d0d1')"
     ]
   }
 }

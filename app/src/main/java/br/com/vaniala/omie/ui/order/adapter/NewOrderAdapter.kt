@@ -13,7 +13,11 @@ import br.com.vaniala.omie.domain.model.ItemModel
  *
  */
 class NewOrderAdapter(
+    var quantity: Int = 1,
+    var priceTotal: Double = 0.0,
     var clickItem: (ItemModel) -> Unit = {},
+    var clickItemPlus: (ItemModel) -> Unit = {},
+    var clickItemMinus: (ItemModel) -> Unit = {},
 ) : RecyclerView.Adapter<NewOrderViewHolder>() {
     var items = emptyList<ItemModel>()
         set(value) {
@@ -34,7 +38,14 @@ class NewOrderAdapter(
     }
 
     override fun onBindViewHolder(holder: NewOrderViewHolder, position: Int) {
-        holder.bind(items[position], clickItem)
+        holder.bind(
+            items[position],
+            quantity,
+            priceTotal,
+            clickItem,
+            clickItemPlus,
+            clickItemMinus,
+        )
     }
 
     override fun getItemCount() = items.size

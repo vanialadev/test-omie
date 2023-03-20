@@ -6,6 +6,7 @@ import br.com.vaniala.omie.data.datasource.local.LocalLoginDataSourceImpl
 import br.com.vaniala.omie.data.datasource.local.LocalOrderDataSourceImpl
 import br.com.vaniala.omie.database.dao.ItemDao
 import br.com.vaniala.omie.database.dao.OrderDao
+import br.com.vaniala.omie.database.dao.OrderWithItemDao
 import br.com.vaniala.omie.database.dao.UserDao
 import br.com.vaniala.omie.domain.repository.UserRepository
 import br.com.vaniala.omie.domain.usecase.login.IsLoggedUserCase
@@ -45,8 +46,10 @@ object DataModule {
     @Provides
     fun providesOrderDataSource(
         orderDao: OrderDao,
+        itemDao: ItemDao,
+        orderWithItemDao: OrderWithItemDao,
     ): LocalDataSource.Order {
-        return LocalOrderDataSourceImpl(orderDao)
+        return LocalOrderDataSourceImpl(orderDao, orderWithItemDao)
     }
 
     @Provides

@@ -6,7 +6,8 @@ package br.com.vaniala.omie.domain.model
  *
  */
 data class OrderModel(
-    val idOrder: Long,
+    val idOrder: Long = 0L,
     val totalPrice: Double,
     val idUser: Long,
+    val name: String,
 )

@@ -14,10 +14,12 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface OrderDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(orderEntity: OrderEntity)
-
     @Query("SELECT * FROM purchase_order WHERE id_user = :idUser")
     fun getAll(idUser: Long): Flow<List<OrderEntity>>
+
+    @Query("SELECT SUM(totalPrice) FROM purchase_order WHERE id_user = :idUser")
+    fun getTotalPrice(idUser: Long): Flow<Double>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(orderEntity: OrderEntity): Long
 }

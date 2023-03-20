@@ -9,12 +9,13 @@ import br.com.vaniala.omie.domain.model.ItemModel
  *
  */
 fun ItemModel.toEntity() = ItemEntity(
-    idItem = 0L,
+    idItem = idItem,
     name = name,
     price = price,
 )
 
 fun ItemEntity.toModel() = ItemModel(
+    idItem = idItem,
     name = name,
     price = price,
 )

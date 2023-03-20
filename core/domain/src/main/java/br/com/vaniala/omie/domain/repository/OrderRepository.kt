@@ -1,5 +1,6 @@
 package br.com.vaniala.omie.domain.repository
 
+import br.com.vaniala.omie.domain.model.ItemModel
 import br.com.vaniala.omie.domain.model.OrderModel
 import kotlinx.coroutines.flow.Flow
 
@@ -11,4 +12,8 @@ import kotlinx.coroutines.flow.Flow
 interface OrderRepository {
 
     fun getAllOrdersByUser(idUser: Long): Flow<List<OrderModel>>
+
+    suspend fun insertOrderWithItems(orderEntity: OrderModel, items: List<ItemModel>)
+
+    fun getTotal(idUser: Long): Flow<Double>
 }

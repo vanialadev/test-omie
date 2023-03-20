@@ -13,3 +13,5 @@ fun String.isValidEmail(): Boolean =
     !isEmpty() && PatternsCompat.EMAIL_ADDRESS.matcher(this).matches()
 
 fun String.isValidPassword(): Boolean = this.length > MINIMAL_LENGTH
+
+fun String.isValidName(): Boolean = this.isNotEmpty()
